@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HORNOFINO Cupey — Menú y órdenes | McQueenyGroup</title>
+<meta name="description" content="HORNOFINO Cupey: menú completo, menú light, órdenes para recoger y Horno Rewards. Cupey, Puerto Rico." />
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="s-nav" aria-label="Navegación de la tienda">
+  <div class="s-nav__row">
+    <a class="s-brand" href="index.html" aria-label="Volver a McQueenyGroup">
+      <img src="assets/logo-dark.png" alt="HORNOFINO" />
+      <span class="chip">Cupey</span>
+    </a>
+    <div class="s-links">
+      <a href="#menu">Menú</a>
+      <a href="#rewards">Rewards</a>
+      <a href="#visitanos">Visítanos</a>
+    </div>
+    <button class="s-cart-btn" id="cartOpen" aria-label="Abrir canasta">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-1.6 9a2 2 0 0 1-2 1.6H7.6a2 2 0 0 1-2-1.6L4 10z"/><path d="M8.2 10L12 4l3.8 6"/></svg>
+      <span class="label">Canasta</span> <span class="count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<header class="s-hero">
+  <img class="bg" src="assets/menu-hf/panes.jpg" alt="" />
+  <div class="s-hero__inner">
+    <span class="eyebrow" data-reveal="fade">HORNOFINO · Cupey</span>
+    <h1 data-split-text data-reveal="fade">Pan caliente todos los días en Cupey.</h1>
+    <p data-reveal data-delay=".35">Panes, quesitos, sandwiches y café recién colao en el Cupey Professional Mall. Ordena aquí y recoge sin fila.</p>
+    <div class="s-hero__cta" data-reveal data-delay=".5">
+      <a class="btn btn--solid btn--big" href="#menu" data-magnetic>Ordena ahora</a>
+      <a class="btn btn--light" href="#rewards">Horno Rewards</a>
+    </div>
+  </div>
+  <span class="s-hero__scroll" aria-hidden="true">desliza</span>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <div class="marquee__part">
+      <span>Pan caliente <i>todos los días</i></span><span>Café recién <i>colao</i></span><span>Quesitos <i>de verdad</i></span><span>Horno Rewards</span><span>Desde <i>las 6:00 AM</i></span><span>Recoge <i>sin fila</i></span>
+    </div>
+    <div class="marquee__part">
+      <span>Pan caliente <i>todos los días</i></span><span>Café recién <i>colao</i></span><span>Quesitos <i>de verdad</i></span><span>Horno Rewards</span><span>Desde <i>las 6:00 AM</i></span><span>Recoge <i>sin fila</i></span>
+    </div>
+  </div>
+</div>
+
+<p class="s-switch">¿Prefieres otra panadería? Visita <a href="guaynabo.html">Apolo · Guaynabo</a> o <a href="bayamon.html">Los Filtros · Bayamón</a> · <a href="index.html">ver todas</a></p>
+
+<section class="rw-banner" id="rewards">
+  <div class="rw-card reveal">
+    <div>
+      <span class="eyebrow">Horno Rewards</span>
+      <h2>Tu pan de cada día <em>tiene premio.</em></h2>
+      <p id="rwNote">Cada orden = 1 sello. 8 sellos = café o quesito gratis.</p>
+      <div class="rw-actions">
+        <button class="btn btn--solid" id="rwJoin">Únete gratis</button>
+        <button class="btn btn--verde" id="rwRedeem" disabled>Canjear premio</button>
+        <span class="rw-progress-note">Válido en las tres panaderías.</span>
+      </div>
+    </div>
+    <div class="punch" data-tilt="8">
+      <div class="punch__title">Tu tarjeta de sellos</div>
+      <div class="punch__grid" id="punchGrid" aria-label="Progreso de sellos"></div>
+      <p class="punch__label" id="punchLabel"></p>
+    </div>
+  </div>
+</section>
+
+<section class="menu-head" id="menu">
+  <span class="eyebrow">El menú</span>
+  <h2 data-reveal="blur">¿Qué se te <em>antoja</em> hoy?</h2>
+  <p>Todo se hornea aquí mismo, todos los días. Añade a tu canasta y envía la orden — la recoges en Cupey.</p>
+  <div class="menu-toggle" role="group" aria-label="Tipo de menú">
+    <div class="menu-toggle__inner">
+      <button class="active" data-mode="regular" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5c0-4.5 4-7.5 8-7.5s8 3 8 7.5c0 2.2-2.5 3-8 3s-8-.8-8-3z"/><path d="M9 10.8l-1 2.2M13 10l-1 2.2M16.6 10.8l-1 2.2"/></svg> Menú Regular</button>
+      <button class="is-light" data-mode="light" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-9 0-14 4.6-14 11.4 0 1.9.7 3.8.7 3.8s6.9 1.4 11-2.7C21.8 12.4 20 4 20 4z"/><path d="M6.7 19.2C10 12.6 15 8.4 20 4"/></svg> Menú Light</button>
+    </div>
+  </div>
+</section>
+
+<nav class="cat-tabs" aria-label="Categorías del menú">
+  <div class="cat-tabs__scroll" id="catTabs"></div>
+</nav>
+
+<main class="menu-body" id="menuBody"></main>
+
+<section class="store-photo" aria-label="Nuestra tienda">
+  <figure data-reveal="clip">
+    <img src="assets/stores/cupey-coffee.jpg" alt="El Coffee Shop de HORNOFINO en el Cupey Professional Mall, con sus murales en blanco y negro" onerror="this.closest('.store-photo').remove()" />
+    <figcaption><span>La tienda</span>Nuestro Coffee Shop en el Cupey Professional Mall.</figcaption>
+  </figure>
+</section>
+
+<section class="visit" id="visitanos">
+  <div class="visit__card reveal">
+    <div>
+      <span class="eyebrow">Visítanos</span>
+      <h2 data-reveal="blur">HORNOFINO Cupey</h2>
+      <p class="addr">Cupey Professional Mall<br />C. San Claudio<br />San Juan, PR 00926</p>
+    </div>
+    <div class="visit__meta">
+      <div class="row"><strong>Horario</strong><p>Lun – Sáb · 7:00 AM – 6:00 PM<br />Dom · 7:00 AM – 3:00 PM</p></div>
+      <div class="row"><strong>Órdenes</strong>
+        <p>WhatsApp y correo de la tienda <span class="placeholder-tag">números por confirmar</span></p>
+      </div>
+      <div class="visit__actions">
+        <a class="btn btn--light" href="https://maps.google.com/?q=Hornofino+Cupey+Professional+Mall+C.+San+Claudio+San+Juan+00926" target="_blank" rel="noopener">Cómo llegar</a>
+        <a class="btn btn--ghost" style="box-shadow:inset 0 0 0 2px var(--crema);color:var(--crema)" href="#menu">Ver el menú</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer__mark" aria-hidden="true">HORNOFINO</span>
+  <div class="footer__grid">
+    <div class="footer__brand">
+      <img src="assets/logo-white.png" alt="HORNOFINO" />
+      <p>Un proyecto de McQueenyGroup.<br />Pan artesanal boricua desde el corazón del área metro.</p>
+    </div>
+    <div>
+      <h3>Panaderías</h3>
+      <a href="cupey.html">Cupey</a>
+      <a href="guaynabo.html">Apolo · Guaynabo</a>
+      <a href="bayamon.html">Los Filtros · Bayamón</a>
+    </div>
+    <div>
+      <h3>Explora</h3>
+      <a href="#menu">Menú</a>
+      <a href="#rewards">Horno Rewards</a>
+      <a href="#visitanos">Visítanos</a>
+    </div>
+    <div>
+      <h3>Grupo</h3>
+      <a href="index.html">McQueenyGroup</a>
+      <a href="index.html#nosotros">Nosotros</a>
+    </div>
+  </div>
+  <div class="footer__base">
+    <span>© 2026 McQueenyGroup · HORNOFINO</span>
+    <span>Cupey · Guaynabo · Bayamón</span>
+  </div>
+</footer>
+
+<!-- Canasta -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Tu canasta">
+  <div class="cart__head">
+    <div>
+      <h3>Tu canasta</h3>
+      <span class="store-tag">Recoges en Cupey</span>
+    </div>
+    <button class="cart__close" id="cartClose" aria-label="Cerrar canasta"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="cart__items" id="cartItems"></div>
+  <div class="cart__foot">
+    <div class="cart__sum"><span id="cartSumLabel">Total</span><span id="cartTotal">$0.00</span></div>
+    <input id="cartName" type="text" placeholder="Tu nombre (para la orden)" aria-label="Tu nombre (para la orden)" autocomplete="name" />
+    <textarea id="cartNote" rows="2" placeholder="Nota para la tienda (opcional)" aria-label="Nota para la tienda (opcional)"></textarea>
+    <button class="btn btn--solid cart__send" id="cartSend" disabled>Enviar orden por WhatsApp</button>
+    <div class="cart__alt">
+      <span>o envíala</span>
+      <button id="cartEmail">por correo</button>
+      <span>·</span>
+      <button id="cartCopy">copiar orden</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Modal -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="big" aria-hidden="true" id="modalIcon"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <button class="btn btn--solid" id="modalClose">¡Listo!</button>
+    <button class="btn btn--ghost" id="modalAlt" hidden></button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<script>window.STORE_ID = 'cupey';</script>
+<script src="menu-data.js"></script>
+<script src="motion.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

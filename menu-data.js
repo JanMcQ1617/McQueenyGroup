@@ -1,0 +1,1627 @@
+// Datos del menú HORNOFINO — generado del sitio anterior (2026-07-21).
+// REGULAR: 13 secciones reales. LIGHT: estructura placeholder — sustituir cuando Jan tenga platos e imágenes reales.
+const MENU_REGULAR = [
+ {
+  "id": "mega-quesito",
+  "section": "Mega Quesito",
+  "intro": "",
+  "img": "assets/menu-hf/mega-quesito.jpg",
+  "items": [
+   {
+    "id": "mega-quesito",
+    "name": "Mega Quesito",
+    "price": 16.95
+   },
+   {
+    "id": "mega-quesito-guayaba",
+    "name": "Mega Quesito Guayaba",
+    "price": 18.95
+   },
+   {
+    "id": "mega-quesito-nutella",
+    "name": "Mega Quesito Nutella",
+    "price": 18.95
+   },
+   {
+    "id": "combo-mega-quesito",
+    "name": "Combo Mega Quesito",
+    "price": 24.95
+   },
+   {
+    "id": "combo-mega-quesito-guayaba",
+    "name": "Combo Mega Quesito Guayaba",
+    "price": 26.95
+   },
+   {
+    "id": "combo-mega-quesito-nutella",
+    "name": "Combo Mega Quesito Nutella",
+    "price": 26.95
+   },
+   {
+    "id": "combo-mega-mixto",
+    "name": "Combo Mega Mixto",
+    "price": 25.95
+   }
+  ]
+ },
+ {
+  "id": "panes",
+  "section": "Panes",
+  "intro": "",
+  "img": "assets/menu-hf/panes.jpg",
+  "items": [
+   {
+    "id": "pan-de-agua-1-lb",
+    "name": "Pan de Agua 1 lb",
+    "price": 2.95
+   },
+   {
+    "id": "pan-de-agua-lb",
+    "name": "Pan de Agua ½ lb",
+    "price": 1.95
+   },
+   {
+    "id": "pan-de-agua-con-mantequilla-1-lb",
+    "name": "Pan de Agua con Mantequilla 1 lb",
+    "price": 4.95
+   },
+   {
+    "id": "pan-de-agua-con-mantequilla-lb",
+    "name": "Pan de Agua con Mantequilla ½ lb",
+    "price": 3.95
+   },
+   {
+    "id": "pan-de-agua-con-ajo-1-lb",
+    "name": "Pan de Agua con Ajo 1 lb",
+    "price": 5.95
+   },
+   {
+    "id": "pan-de-agua-con-ajo-lb",
+    "name": "Pan de Agua con Ajo ½ lb",
+    "price": 4.95
+   },
+   {
+    "id": "pan-sobao-1-lb",
+    "name": "Pan Sobao 1 lb",
+    "price": 3.95
+   },
+   {
+    "id": "pan-sobao-lb",
+    "name": "Pan Sobao ½ lb",
+    "price": 1.95
+   },
+   {
+    "id": "pan-sobao-mantequilla-1-lb",
+    "name": "Pan Sobao Mantequilla 1 lb",
+    "price": 6.95
+   },
+   {
+    "id": "pan-sobao-mantequilla-lb",
+    "name": "Pan Sobao Mantequilla ½ lb",
+    "price": 3.95
+   },
+   {
+    "id": "pan-sobao-con-queso-crema-lb",
+    "name": "Pan Sobao con Queso Crema ½ lb",
+    "price": 4.95
+   },
+   {
+    "id": "pan-sobao-con-queso-crema-y-guayaba-lb",
+    "name": "Pan Sobao con Queso Crema y Guayaba ½ lb",
+    "price": 6.95
+   },
+   {
+    "id": "pan-de-piquito",
+    "name": "Pan de Piquito",
+    "price": 3.95
+   },
+   {
+    "id": "pan-de-piquito-parmesano",
+    "name": "Pan de Piquito Parmesano",
+    "price": 6.95
+   },
+   {
+    "id": "pan-integral-1-lb",
+    "name": "Pan Integral 1 lb",
+    "price": 4.95
+   },
+   {
+    "id": "pan-integral-slice",
+    "name": "Pan Integral Slice",
+    "price": 5.95
+   },
+   {
+    "id": "pan-especial",
+    "name": "Pan Especial",
+    "price": 4.95
+   },
+   {
+    "id": "pan-especial-rebanado",
+    "name": "Pan Especial Rebanado",
+    "price": 5.95
+   },
+   {
+    "id": "pan-de-colores",
+    "name": "Pan de Colores",
+    "price": 6.95
+   },
+   {
+    "id": "paquete-de-4-mallorcas",
+    "name": "Paquete de 4 Mallorcas",
+    "price": 5.95
+   },
+   {
+    "id": "panecillo-de-agua-1",
+    "name": "Panecillo de Agua (1)",
+    "price": 1.25
+   },
+   {
+    "id": "panecillos-de-agua-4",
+    "name": "Panecillos de Agua (4)",
+    "price": 3.95
+   },
+   {
+    "id": "panecillo-integral-1",
+    "name": "Panecillo Integral (1)",
+    "price": 1.25
+   },
+   {
+    "id": "panecillos-integral-4",
+    "name": "Panecillos Integral (4)",
+    "price": 4.95
+   },
+   {
+    "id": "panecillos-media-noche-4",
+    "name": "Panecillos Media Noche (4)",
+    "price": 5.95
+   },
+   {
+    "id": "croissant",
+    "name": "Croissant",
+    "price": 3.95
+   }
+  ]
+ },
+ {
+  "id": "reposteria",
+  "section": "Repostería",
+  "intro": "",
+  "img": "assets/menu-hf/reposteria.jpg",
+  "items": [
+   {
+    "id": "quesito-regular",
+    "name": "Quesito Regular",
+    "price": 4.95
+   },
+   {
+    "id": "quesito-de-guayaba",
+    "name": "Quesito de Guayaba",
+    "price": 4.95
+   },
+   {
+    "id": "mallorca-con-queso",
+    "name": "Mallorca con Queso",
+    "price": 4.95
+   },
+   {
+    "id": "mallorca-glaceada",
+    "name": "Mallorca Glaceada",
+    "price": 3.95
+   },
+   {
+    "id": "mallorca-azucar",
+    "name": "Mallorca Azúcar",
+    "price": 2.95
+   },
+   {
+    "id": "dona-azucar",
+    "name": "Dona Azúcar",
+    "price": 1.95
+   },
+   {
+    "id": "dona-glaciada",
+    "name": "Dona Glaciada",
+    "price": 2.95
+   },
+   {
+    "id": "dona-rellena",
+    "name": "Dona Rellena",
+    "price": 3.95
+   },
+   {
+    "id": "dona-gourmet",
+    "name": "Dona Gourmet",
+    "price": 4.95
+   },
+   {
+    "id": "boli-donas-1",
+    "name": "Boli Donas (1)",
+    "price": 1.5
+   },
+   {
+    "id": "boli-donas-12",
+    "name": "Boli Donas (12)",
+    "price": 7.9
+   },
+   {
+    "id": "tres-leches",
+    "name": "Tres Leches",
+    "price": 6.95
+   },
+   {
+    "id": "tres-leches-de-chocolate-vaso",
+    "name": "Tres Leches de Chocolate (vaso)",
+    "price": 6.95
+   },
+   {
+    "id": "flan-vainilla-pedazo",
+    "name": "Flan Vainilla (pedazo)",
+    "price": 3.95
+   },
+   {
+    "id": "flan-vainilla-entero",
+    "name": "Flan Vainilla (entero)",
+    "price": 14.95
+   },
+   {
+    "id": "flan-de-queso-pedazo",
+    "name": "Flan de Queso (pedazo)",
+    "price": 3.95
+   },
+   {
+    "id": "flan-de-queso-entero",
+    "name": "Flan de Queso (entero)",
+    "price": 14.95
+   },
+   {
+    "id": "cheesecake-pedazo-plain",
+    "name": "Cheesecake (pedazo plain)",
+    "price": 4.95
+   },
+   {
+    "id": "cheesecake-entero",
+    "name": "Cheesecake (entero)",
+    "price": 43.95
+   },
+   {
+    "id": "cheesecake-decorado-pedazo",
+    "name": "Cheesecake Decorado (pedazo)",
+    "price": 6.95
+   },
+   {
+    "id": "cheesecake-decorado-entero",
+    "name": "Cheesecake Decorado (entero)",
+    "price": 43.95
+   },
+   {
+    "id": "cheesecake-decorado-de-frutas",
+    "name": "Cheesecake Decorado de Frutas",
+    "price": 49.95
+   },
+   {
+    "id": "tarta-de-frutas",
+    "name": "Tarta de Frutas",
+    "price": 6.95
+   },
+   {
+    "id": "mini-tarta-de-frutas",
+    "name": "Mini Tarta de Frutas",
+    "price": 2.95
+   },
+   {
+    "id": "mega-tarta-de-frutas",
+    "name": "Mega Tarta de Frutas",
+    "price": 40.0
+   },
+   {
+    "id": "tarta-de-besito-de-coco",
+    "name": "Tarta de Besito de Coco",
+    "price": 6.95
+   },
+   {
+    "id": "pan-de-maiz-pedazo",
+    "name": "Pan de Maíz (pedazo)",
+    "price": 3.95
+   },
+   {
+    "id": "pan-de-maiz-entero",
+    "name": "Pan de Maíz (entero)",
+    "price": 11.95
+   },
+   {
+    "id": "budin-pedazo",
+    "name": "Budín (pedazo)",
+    "price": 4.95
+   },
+   {
+    "id": "budin-entero",
+    "name": "Budín (entero)",
+    "price": 8.95
+   },
+   {
+    "id": "brownie",
+    "name": "Brownie",
+    "price": 4.95
+   },
+   {
+    "id": "espejuelito",
+    "name": "Espejuelito",
+    "price": 3.95
+   },
+   {
+    "id": "mantecadito-de-guayaba",
+    "name": "Mantecadito de Guayaba",
+    "price": 3.95
+   },
+   {
+    "id": "mantecadito-de-grajea",
+    "name": "Mantecadito de Grajea",
+    "price": 3.95
+   },
+   {
+    "id": "galleta-chocolate-chip",
+    "name": "Galleta Chocolate Chip",
+    "price": 4.95
+   },
+   {
+    "id": "galleta-chocolate-chip-grande",
+    "name": "Galleta Chocolate Chip Grande",
+    "price": 4.95
+   },
+   {
+    "id": "galleta-almendra",
+    "name": "Galleta Almendra",
+    "price": 4.95
+   },
+   {
+    "id": "cupcake-vainilla",
+    "name": "Cupcake Vainilla",
+    "price": 2.95
+   },
+   {
+    "id": "cupcake-chocolate",
+    "name": "Cupcake Chocolate",
+    "price": 2.95
+   },
+   {
+    "id": "cupcakes-4",
+    "name": "Cupcakes (4)",
+    "price": 6.95
+   },
+   {
+    "id": "pastelillo-de-guayaba",
+    "name": "Pastelillo de Guayaba",
+    "price": 3.95
+   },
+   {
+    "id": "pastelon-de-guayaba",
+    "name": "Pastelón de Guayaba",
+    "price": 4.95
+   },
+   {
+    "id": "panetela-de-guayaba",
+    "name": "Panetela de Guayaba",
+    "price": 5.95
+   },
+   {
+    "id": "tornillo",
+    "name": "Tornillo",
+    "price": 4.95
+   },
+   {
+    "id": "merengue",
+    "name": "Merengue",
+    "price": 3.95
+   },
+   {
+    "id": "besito-de-coco",
+    "name": "Besito de Coco",
+    "price": 3.95
+   },
+   {
+    "id": "turnover-manzana",
+    "name": "Turnover Manzana",
+    "price": 4.95
+   },
+   {
+    "id": "mil-hojas",
+    "name": "Mil Hojas",
+    "price": 4.95
+   },
+   {
+    "id": "napoleon",
+    "name": "Napoleón",
+    "price": 4.95
+   },
+   {
+    "id": "mini-croissant-relleno",
+    "name": "Mini Croissant Relleno",
+    "price": 4.95
+   },
+   {
+    "id": "tembleque-entero",
+    "name": "Tembleque (entero)",
+    "price": 10.95
+   },
+   {
+    "id": "bizcocho-de-vainilla-pedazo",
+    "name": "Bizcocho de Vainilla (pedazo)",
+    "price": 4.95
+   },
+   {
+    "id": "bizcocho-entero-plain",
+    "name": "Bizcocho Entero (plain)",
+    "price": 29.95
+   },
+   {
+    "id": "bizcocho-entero-decorado",
+    "name": "Bizcocho Entero (decorado)",
+    "price": 39.95
+   }
+  ]
+ },
+ {
+  "id": "pasteleria",
+  "section": "Pastelería",
+  "intro": "",
+  "img": "assets/menu-hf/pasteleria.jpg",
+  "items": [
+   {
+    "id": "croqueta-de-jamon",
+    "name": "Croqueta de Jamón",
+    "price": 1.95
+   },
+   {
+    "id": "croqueta-de-bacalao",
+    "name": "Croqueta de Bacalao",
+    "price": 2.95
+   },
+   {
+    "id": "pastelillo-de-carne",
+    "name": "Pastelillo de Carne",
+    "price": 2.95
+   },
+   {
+    "id": "pastelillo-de-queso",
+    "name": "Pastelillo de Queso",
+    "price": 1.95
+   },
+   {
+    "id": "empanadilla-de-carne",
+    "name": "Empanadilla de Carne",
+    "price": 2.95
+   },
+   {
+    "id": "empanadilla-de-pizza",
+    "name": "Empanadilla de Pizza",
+    "price": 2.95
+   },
+   {
+    "id": "sorullo-de-maiz",
+    "name": "Sorullo de Maíz",
+    "price": 1.95
+   },
+   {
+    "id": "taco-de-pollo",
+    "name": "Taco de Pollo",
+    "price": 2.95
+   },
+   {
+    "id": "relleno-de-papa",
+    "name": "Relleno de Papa",
+    "price": 2.95
+   },
+   {
+    "id": "cheesedog",
+    "name": "Cheesedog",
+    "price": 2.95
+   },
+   {
+    "id": "chorizo-a-la-gabardina",
+    "name": "Chorizo a la Gabardina",
+    "price": 3.95
+   }
+  ]
+ },
+ {
+  "id": "sandwiches",
+  "section": "Sandwiches",
+  "intro": "",
+  "img": "assets/menu-hf/sandwiches.jpg",
+  "items": [
+   {
+    "id": "bocadillo",
+    "name": "Bocadillo",
+    "price": 5.95,
+    "from": true
+   },
+   {
+    "id": "bocadillo-de-pavo",
+    "name": "Bocadillo de Pavo",
+    "price": 6.95,
+    "from": true
+   },
+   {
+    "id": "jamon-y-queso",
+    "name": "Jamón y Queso",
+    "price": 8.45,
+    "from": true
+   },
+   {
+    "id": "jamon-queso-y-huevo",
+    "name": "Jamón, Queso y Huevo",
+    "price": 9.45,
+    "from": true
+   },
+   {
+    "id": "media-noche",
+    "name": "Media Noche",
+    "price": 8.95,
+    "from": true
+   },
+   {
+    "id": "cubano",
+    "name": "Cubano",
+    "price": 13.45,
+    "from": true
+   },
+   {
+    "id": "tripleta",
+    "name": "Tripleta",
+    "price": 12.95,
+    "from": true
+   },
+   {
+    "id": "bistec",
+    "name": "Bistec",
+    "price": 11.45,
+    "from": true
+   },
+   {
+    "id": "pechuga-de-pollo",
+    "name": "Pechuga de Pollo",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "pavo-asado",
+    "name": "Pavo Asado",
+    "price": 11.45,
+    "from": true
+   },
+   {
+    "id": "pernil-asado",
+    "name": "Pernil Asado",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "pastrami",
+    "name": "Pastrami",
+    "price": 11.45,
+    "from": true
+   },
+   {
+    "id": "salami",
+    "name": "Salami",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "mortadella",
+    "name": "Mortadella",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "jamon-bolo",
+    "name": "Jamón Bolo",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "prosciutto-di-parma",
+    "name": "Prosciutto di Parma",
+    "price": 12.95,
+    "from": true
+   },
+   {
+    "id": "club-sandwich",
+    "name": "Club Sandwich",
+    "price": 12.45,
+    "from": true
+   },
+   {
+    "id": "cordon-bleu-sandwich",
+    "name": "Cordon Bleu Sandwich",
+    "price": 12.45,
+    "from": true
+   },
+   {
+    "id": "choripan-cantimpalo",
+    "name": "Choripán Cantimpalo",
+    "price": 12.45,
+    "from": true
+   },
+   {
+    "id": "tuna-fish",
+    "name": "Tuna Fish",
+    "price": 10.45,
+    "from": true
+   },
+   {
+    "id": "pescado",
+    "name": "Pescado",
+    "price": 13.95,
+    "from": true
+   },
+   {
+    "id": "sandwich-de-tortilla",
+    "name": "Sandwich de Tortilla",
+    "price": 9.45,
+    "from": true
+   },
+   {
+    "id": "sandwich-de-revoltillo",
+    "name": "Sandwich de Revoltillo",
+    "price": 9.45,
+    "from": true
+   },
+   {
+    "id": "sandwich-de-croquetas",
+    "name": "Sandwich de Croquetas",
+    "price": 9.45,
+    "from": true
+   }
+  ]
+ },
+ {
+  "id": "tostadas",
+  "section": "Tostadas",
+  "intro": "",
+  "img": "assets/menu-hf/tostadas.jpg",
+  "items": [
+   {
+    "id": "plain",
+    "name": "Plain",
+    "price": 2.95
+   },
+   {
+    "id": "mantequilla",
+    "name": "Mantequilla",
+    "price": 2.95
+   },
+   {
+    "id": "ajo",
+    "name": "Ajo",
+    "price": 3.95
+   },
+   {
+    "id": "mayonesa",
+    "name": "Mayonesa",
+    "price": 3.95
+   },
+   {
+    "id": "queso-americano",
+    "name": "Queso Americano",
+    "price": 3.95
+   },
+   {
+    "id": "queso-suizo",
+    "name": "Queso Suizo",
+    "price": 4.95
+   },
+   {
+    "id": "queso-de-bola",
+    "name": "Queso de Bola",
+    "price": 4.95
+   },
+   {
+    "id": "huevo",
+    "name": "Huevo",
+    "price": 4.95
+   },
+   {
+    "id": "jamon-cocido",
+    "name": "Jamón Cocido",
+    "price": 3.95
+   }
+  ]
+ },
+ {
+  "id": "desayuno",
+  "section": "Desayuno",
+  "intro": "",
+  "img": "assets/menu-hf/desayuno.jpg",
+  "items": [
+   {
+    "id": "huevos-fritos",
+    "name": "Huevos Fritos",
+    "price": 8.95
+   },
+   {
+    "id": "huevos-hervidos",
+    "name": "Huevos Hervidos",
+    "price": 8.95
+   },
+   {
+    "id": "revoltillo",
+    "name": "Revoltillo",
+    "price": 8.95
+   },
+   {
+    "id": "revoltillo-de-clara",
+    "name": "Revoltillo de Clara",
+    "price": 8.95
+   },
+   {
+    "id": "omelette",
+    "name": "Omelette",
+    "price": 9.95
+   }
+  ]
+ },
+ {
+  "id": "brunch",
+  "section": "Brunch",
+  "intro": "",
+  "img": "assets/menu-hf/brunch.jpg",
+  "items": [
+   {
+    "id": "waffle-combo",
+    "name": "Waffle Combo",
+    "price": 16.95
+   },
+   {
+    "id": "waffles-2",
+    "name": "Waffles (2)",
+    "price": 8.95
+   },
+   {
+    "id": "pancakes-2",
+    "name": "Pancakes (2)",
+    "price": 8.95
+   },
+   {
+    "id": "tostadas-francesas-2",
+    "name": "Tostadas Francesas (2)",
+    "price": 8.95
+   },
+   {
+    "id": "croissant-mantequilla",
+    "name": "Croissant Mantequilla",
+    "price": 5.95
+   },
+   {
+    "id": "croissant-nutella",
+    "name": "Croissant Nutella",
+    "price": 7.95
+   },
+   {
+    "id": "croissant-jalea",
+    "name": "Croissant Jalea",
+    "price": 5.95
+   },
+   {
+    "id": "bagel",
+    "name": "Bagel",
+    "price": 2.95
+   },
+   {
+    "id": "bagel-mantequilla",
+    "name": "Bagel Mantequilla",
+    "price": 3.95
+   },
+   {
+    "id": "bagel-nutella",
+    "name": "Bagel Nutella",
+    "price": 5.95
+   },
+   {
+    "id": "bagel-jalea",
+    "name": "Bagel Jalea",
+    "price": 3.95
+   }
+  ]
+ },
+ {
+  "id": "cremas-y-sopas",
+  "section": "Cremas y Sopas",
+  "intro": "",
+  "img": "assets/menu-hf/sopas.jpg",
+  "items": [
+   {
+    "id": "crema-de-avena",
+    "name": "Crema de Avena",
+    "ask": true
+   },
+   {
+    "id": "crema-de-maicena",
+    "name": "Crema de Maicena",
+    "ask": true
+   },
+   {
+    "id": "crema-de-farina",
+    "name": "Crema de Farina",
+    "ask": true
+   },
+   {
+    "id": "crema-de-harina-de-maiz",
+    "name": "Crema de Harina de Maíz",
+    "ask": true
+   },
+   {
+    "id": "caldo-gallego",
+    "name": "Caldo Gallego",
+    "ask": true
+   },
+   {
+    "id": "sopa-de-pollo",
+    "name": "Sopa de Pollo",
+    "ask": true
+   }
+  ]
+ },
+ {
+  "id": "cafe-y-te",
+  "section": "Café y Té",
+  "intro": "",
+  "img": "assets/menu-hf/cafe-y-te.jpg",
+  "items": [
+   {
+    "id": "espresso",
+    "name": "Espresso",
+    "price": 2.0
+   },
+   {
+    "id": "macchiato",
+    "name": "Macchiato",
+    "price": 2.95
+   },
+   {
+    "id": "latte-4-oz",
+    "name": "Latte 4 oz",
+    "price": 2.95
+   },
+   {
+    "id": "latte-8-oz",
+    "name": "Latte 8 oz",
+    "price": 3.95
+   },
+   {
+    "id": "latte-12-oz",
+    "name": "Latte 12 oz",
+    "price": 4.95
+   },
+   {
+    "id": "negro-americano-4-oz",
+    "name": "Negro Americano 4 oz",
+    "price": 2.5
+   },
+   {
+    "id": "negro-americano-8-oz",
+    "name": "Negro Americano 8 oz",
+    "price": 2.95
+   },
+   {
+    "id": "negro-americano-12-oz",
+    "name": "Negro Americano 12 oz",
+    "price": 3.95
+   },
+   {
+    "id": "cappuccino-8-oz",
+    "name": "Cappuccino 8 oz",
+    "price": 3.95
+   },
+   {
+    "id": "cappuccino-12-oz",
+    "name": "Cappuccino 12 oz",
+    "price": 4.95
+   },
+   {
+    "id": "mocha-8-oz",
+    "name": "Mocha 8 oz",
+    "price": 4.95
+   },
+   {
+    "id": "mocha-12-oz",
+    "name": "Mocha 12 oz",
+    "price": 5.95
+   },
+   {
+    "id": "chai-8-oz",
+    "name": "Chai 8 oz",
+    "price": 4.95
+   },
+   {
+    "id": "chai-12-oz",
+    "name": "Chai 12 oz",
+    "price": 5.95
+   },
+   {
+    "id": "chai-latte-8-oz",
+    "name": "Chai Latte 8 oz",
+    "price": 4.95
+   },
+   {
+    "id": "chai-latte-12-oz",
+    "name": "Chai Latte 12 oz",
+    "price": 5.95
+   },
+   {
+    "id": "matcha-8-oz",
+    "name": "Matcha 8 oz",
+    "price": 4.95
+   },
+   {
+    "id": "matcha-12-oz",
+    "name": "Matcha 12 oz",
+    "price": 5.95
+   },
+   {
+    "id": "latte-frio-12-oz",
+    "name": "Latte Frío 12 oz",
+    "price": 4.95
+   },
+   {
+    "id": "frappe-12-oz",
+    "name": "Frappe 12 oz",
+    "price": 6.95
+   },
+   {
+    "id": "frappe-latte",
+    "name": "Frappe Latte",
+    "price": 6.95
+   },
+   {
+    "id": "cafe-hornofino",
+    "name": "Café Hornofino",
+    "price": 6.95
+   },
+   {
+    "id": "chocolate-caliente-8-oz",
+    "name": "Chocolate Caliente 8 oz",
+    "price": 3.95
+   },
+   {
+    "id": "chocolate-caliente-12-oz",
+    "name": "Chocolate Caliente 12 oz",
+    "price": 4.95
+   },
+   {
+    "id": "te-passion-love",
+    "name": "Té Passion & Love",
+    "price": 4.95
+   },
+   {
+    "id": "te-citrus-ginger",
+    "name": "Té Citrus & Ginger",
+    "price": 4.95
+   },
+   {
+    "id": "te-apple-caramel",
+    "name": "Té Apple Caramel",
+    "price": 4.95
+   },
+   {
+    "id": "te-strawberry-kisses",
+    "name": "Té Strawberry Kisses",
+    "price": 4.95
+   },
+   {
+    "id": "te-chamomila",
+    "name": "Té Chamomila",
+    "price": 4.95
+   }
+  ]
+ },
+ {
+  "id": "bizcochos",
+  "section": "Bizcochos",
+  "intro": "",
+  "img": "assets/menu-hf/bizcochos.jpg",
+  "items": [
+   {
+    "id": "bizcocho-plain-entero",
+    "name": "Bizcocho Plain (entero)",
+    "price": 24.95
+   },
+   {
+    "id": "bizcocho-decorado-entero",
+    "name": "Bizcocho Decorado (entero)",
+    "price": 30.95
+   },
+   {
+    "id": "bizcocho-de-zanahoria-entero",
+    "name": "Bizcocho de Zanahoria (entero)",
+    "price": 8.95
+   },
+   {
+    "id": "cheesecake-entero-2",
+    "name": "Cheesecake (entero)",
+    "price": 22.0
+   },
+   {
+    "id": "cheesecake-decorado-entero-2",
+    "name": "Cheesecake Decorado (entero)",
+    "price": 34.95
+   },
+   {
+    "id": "pie-de-manzana-entero",
+    "name": "Pie de Manzana (entero)",
+    "price": 10.95
+   },
+   {
+    "id": "pie-de-pina-entero",
+    "name": "Pie de Piña (entero)",
+    "price": 10.95
+   },
+   {
+    "id": "mega-tarta",
+    "name": "Mega Tarta",
+    "price": 32.0
+   },
+   {
+    "id": "tembleque-entero-2",
+    "name": "Tembleque (entero)",
+    "price": 9.95
+   },
+   {
+    "id": "pan-de-maiz-entero-2",
+    "name": "Pan de Maíz (entero)",
+    "price": 8.95
+   },
+   {
+    "id": "flan-de-vainilla-entero",
+    "name": "Flan de Vainilla (entero)",
+    "price": 11.95
+   },
+   {
+    "id": "flan-de-queso-entero-2",
+    "name": "Flan de Queso (entero)",
+    "price": 14.95
+   }
+  ]
+ },
+ {
+  "id": "cortes-frios",
+  "section": "Cortes Fríos",
+  "intro": "",
+  "img": "assets/menu-hf/cortes-frios.jpg",
+  "items": [
+   {
+    "id": "jamon-cocido-1-lb",
+    "name": "Jamón Cocido 1 lb",
+    "price": 4.95
+   },
+   {
+    "id": "jamon-bolo-1-lb",
+    "name": "Jamón Bolo 1 lb",
+    "price": 9.95
+   },
+   {
+    "id": "pavo-asado-1-lb",
+    "name": "Pavo Asado 1 lb",
+    "price": 9.95
+   },
+   {
+    "id": "pernil-asado-1-lb",
+    "name": "Pernil Asado 1 lb",
+    "price": 10.95
+   },
+   {
+    "id": "pastrami-1-lb",
+    "name": "Pastrami 1 lb",
+    "price": 8.95
+   },
+   {
+    "id": "salami-1-lb",
+    "name": "Salami 1 lb",
+    "price": 8.95
+   },
+   {
+    "id": "mortadella-1-lb",
+    "name": "Mortadella 1 lb",
+    "price": 8.95
+   },
+   {
+    "id": "chorizo-cantimpalo-1-lb",
+    "name": "Chorizo Cantimpalo 1 lb",
+    "price": 17.95
+   },
+   {
+    "id": "prosciutto-di-parma-1-lb",
+    "name": "Prosciutto di Parma 1 lb",
+    "price": 25.95
+   },
+   {
+    "id": "queso-americano-1-lb",
+    "name": "Queso Americano 1 lb",
+    "price": 6.95
+   },
+   {
+    "id": "queso-suizo-1-lb",
+    "name": "Queso Suizo 1 lb",
+    "price": 8.95
+   },
+   {
+    "id": "queso-de-papa-1-lb",
+    "name": "Queso de Papa 1 lb",
+    "price": 8.95
+   },
+   {
+    "id": "queso-de-bola-1-lb",
+    "name": "Queso de Bola 1 lb",
+    "price": 11.95
+   },
+   {
+    "id": "queso-manchego-1-lb",
+    "name": "Queso Manchego 1 lb",
+    "price": 20.95
+   }
+  ]
+ },
+ {
+  "id": "para-compartir-catering",
+  "section": "Para Compartir · Catering",
+  "intro": "",
+  "img": "assets/menu-hf/bandejas.jpg",
+  "items": [
+   {
+    "id": "caja-donas-gourmet",
+    "name": "Caja Donas Gourmet",
+    "price": 22.95
+   },
+   {
+    "id": "donas-regular-12",
+    "name": "Donas Regular (12)",
+    "price": 18.95
+   },
+   {
+    "id": "titan-sandwich-jamon-y-queso-americano",
+    "name": "Titán Sandwich Jamón y Queso Americano",
+    "price": 13.95
+   },
+   {
+    "id": "titan-sandwich-pavo-asado-y-queso-suizo",
+    "name": "Titán Sandwich Pavo Asado y Queso Suizo",
+    "price": 18.95
+   },
+   {
+    "id": "chicharron-de-pollo-3-lbs",
+    "name": "Chicharrón de Pollo 3 lbs",
+    "price": 37.75
+   },
+   {
+    "id": "chicharron-de-pollo-4-lbs",
+    "name": "Chicharrón de Pollo 4 lbs",
+    "price": 49.95
+   },
+   {
+    "id": "chicharron-de-pollo-5-lbs",
+    "name": "Chicharrón de Pollo 5 lbs",
+    "price": 62.95
+   },
+   {
+    "id": "tortilla-espanola-pedazo",
+    "name": "Tortilla Española (pedazo)",
+    "price": 5.95
+   },
+   {
+    "id": "tortilla-espanola-entera",
+    "name": "Tortilla Española (entera)",
+    "price": 28.95
+   },
+   {
+    "id": "tortilla-espanola-picada",
+    "name": "Tortilla Española Picada",
+    "price": 32.95
+   },
+   {
+    "id": "croquetas-de-jamon-50",
+    "name": "Croquetas de Jamón (50)",
+    "price": 49.95
+   },
+   {
+    "id": "croquetas-de-bacalao-50",
+    "name": "Croquetas de Bacalao (50)",
+    "price": 59.95
+   },
+   {
+    "id": "croquetas-de-queso-manchego-50",
+    "name": "Croquetas de Queso Manchego (50)",
+    "price": 64.95
+   },
+   {
+    "id": "pastelillos-de-carne",
+    "name": "Pastelillos de Carne",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "pastelillos-de-guayaba",
+    "name": "Pastelillos de Guayaba",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "mini-quesitos",
+    "name": "Mini Quesitos",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "mantecaditos-de-guayaba",
+    "name": "Mantecaditos de Guayaba",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "brownies",
+    "name": "Brownies",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "besitos-de-coco",
+    "name": "Besitos de Coco",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "mallorquitas",
+    "name": "Mallorquitas",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "mini-donas-variedad",
+    "name": "Mini Donas (variedad)",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "merenguitos",
+    "name": "Merenguitos",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "surtido-de-empanadillas",
+    "name": "Surtido de Empanadillas",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "sorullitos-de-maiz",
+    "name": "Sorullitos de Maíz",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "alcapurrias",
+    "name": "Alcapurrias",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "bolitas-de-queso",
+    "name": "Bolitas de Queso",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "rellenos-de-papa",
+    "name": "Rellenos de Papa",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "mofonguitos",
+    "name": "Mofonguitos",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 26.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 45.95
+     }
+    ]
+   },
+   {
+    "id": "albondigas-mini",
+    "name": "Albóndigas (mini)",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 20.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 49.95
+     }
+    ]
+   },
+   {
+    "id": "croquetas-mini",
+    "name": "Croquetas (mini)",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 20.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 35.95
+     }
+    ]
+   },
+   {
+    "id": "cordon-bleu-mini",
+    "name": "Cordon Bleu (mini)",
+    "variants": [
+     {
+      "label": "25 pzs",
+      "price": 20.95
+     },
+     {
+      "label": "50 pzs",
+      "price": 65.95
+     }
+    ]
+   }
+  ]
+ }
+];
+
+const MENU_LIGHT = [
+ {
+  "id": "light-bowls",
+  "section": "Bowls & Ensaladas",
+  "intro": "Bowls frescos con granos, vegetales del país y proteína a tu gusto.",
+  "img": null,
+  "placeholder": true,
+  "items": [
+   {
+    "id": "light-bowl-1",
+    "name": "Bowl Mediterráneo",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-bowl-2",
+    "name": "Bowl Proteína",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-bowl-3",
+    "name": "Ensalada de la Casa",
+    "price": null,
+    "soon": true
+   }
+  ]
+ },
+ {
+  "id": "light-tostadas",
+  "section": "Tostadas Light",
+  "intro": "Nuestro pan de siempre, con toppings frescos y ligeros.",
+  "img": null,
+  "placeholder": true,
+  "items": [
+   {
+    "id": "light-tostada-1",
+    "name": "Tostada de Aguacate",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-tostada-2",
+    "name": "Tostada de Salmón",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-tostada-3",
+    "name": "Tostada Caprese",
+    "price": null,
+    "soon": true
+   }
+  ]
+ },
+ {
+  "id": "light-sin-azucar",
+  "section": "Repostería Sin Azúcar",
+  "intro": "El sabor de la repostería HORNOFINO, endulzado de forma natural.",
+  "img": null,
+  "placeholder": true,
+  "items": [
+   {
+    "id": "light-sa-1",
+    "name": "Bizcocho Sin Azúcar",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-sa-2",
+    "name": "Galletas de Avena",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-sa-3",
+    "name": "Flan Sin Azúcar",
+    "price": null,
+    "soon": true
+   }
+  ]
+ },
+ {
+  "id": "light-batidas",
+  "section": "Jugos & Batidas",
+  "intro": "Jugos naturales, batidas verdes y smoothies de frutas del país.",
+  "img": null,
+  "placeholder": true,
+  "items": [
+   {
+    "id": "light-jugo-1",
+    "name": "Jugo Verde Zen",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-jugo-2",
+    "name": "Smoothie Tropical",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-jugo-3",
+    "name": "Batida de Parcha",
+    "price": null,
+    "soon": true
+   }
+  ]
+ },
+ {
+  "id": "light-desayuno",
+  "section": "Desayuno Zen",
+  "intro": "Mañanas ligeras: avena, yogur, frutas y café.",
+  "img": null,
+  "placeholder": true,
+  "items": [
+   {
+    "id": "light-des-1",
+    "name": "Bowl de Avena & Frutas",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-des-2",
+    "name": "Parfait de Yogur Griego",
+    "price": null,
+    "soon": true
+   },
+   {
+    "id": "light-des-3",
+    "name": "Revoltillo de Claras",
+    "price": null,
+    "soon": true
+   }
+  ]
+ }
+];

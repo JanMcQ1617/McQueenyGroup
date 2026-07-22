@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="22" viewBox="0 0 44 22" fill="none">
+  <!-- One tile of a Greek key (meander) band; black = visible through CSS mask -->
+  <path d="M2 2 H20 V14 H8 V8 H14 V20 H2 Z
+           M24 2 H42 V20 H30 V8 H36 V14 H24 Z"
+        fill="#000"/>
+</svg>
