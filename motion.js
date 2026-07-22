@@ -170,7 +170,7 @@ function hfFlyToCart(fromEl) {
 function hfConfetti(container) {
   if (HF_REDUCED) return;
   const host = container || document.body;
-  const colors = ['#C96F3B', '#E8B04B', '#57734F', '#FBF5EA', '#A85526'];
+  const colors = ['#E7CE8F', '#D9B665', '#B0894A', '#F4ECDC', '#9DB894'];
   for (let i = 0; i < 26; i++) {
     const c = document.createElement('span');
     c.className = 'confetti';
