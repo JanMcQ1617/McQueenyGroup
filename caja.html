@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caja · Horno Rewards | HORNOFINO</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .caja-wrap{max-width:520px;margin:36px auto 90px;padding:0 20px}
+  .panel{
+    border-radius:24px;border:1px solid var(--gold-line);box-shadow:var(--sombra);
+    background:linear-gradient(160deg,var(--blanco),var(--paper-2));
+    padding:30px 26px;margin-bottom:20px;
+  }
+  .panel h2{font-size:1.3rem;margin-bottom:14px}
+  .panel label{display:block;font-size:.62rem;font-weight:750;letter-spacing:.26em;text-transform:uppercase;color:var(--or);margin:14px 0 6px}
+  .panel input,.panel select{
+    width:100%;border:none;border-radius:12px;padding:.9em 1.1em;
+    font-family:inherit;font-size:1rem;background:var(--paper);color:var(--ink);
+    box-shadow:inset 0 0 0 1px rgba(163,127,53,.35);
+  }
+  .panel input:focus,.panel select:focus{outline:none;box-shadow:inset 0 0 0 1.5px var(--or)}
+  #codeIn{text-transform:uppercase;letter-spacing:.3em;font-size:1.4rem;text-align:center;font-family:var(--font-display)}
+  .row-btns{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .row-btns .btn{flex:1;padding-left:1em;padding-right:1em}
+  .cust{
+    text-align:center;padding:20px 0 6px;
+  }
+  .cust .name{font-family:var(--font-display);font-size:1.4rem}
+  .cust .meta{color:var(--ink-soft);font-size:.9rem;margin:4px 0 14px}
+  .cust .punch__grid{margin:0 auto}
+  .rw-flag{
+    margin-top:14px;padding:12px 16px;border-radius:12px;font-size:.92rem;
+    background:rgba(217,182,101,.16);border:1px solid var(--gold-line);color:var(--ink);
+  }
+  .hint{font-size:.78rem;color:var(--ink-faint);margin-top:12px;text-align:center}
+  video{width:100%;border-radius:14px;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div class="caja-wrap">
+  <div style="text-align:center;margin-bottom:22px">
+    <img src="assets/logo-dark.png" alt="HORNOFINO" style="height:34px;margin:0 auto 8px" />
+    <div class="eyebrow" style="justify-content:center">Caja · Horno Rewards</div>
+  </div>
+
+  <div class="panel" id="authPanel">
+    <h2>Tienda</h2>
+    <label for="storeSel">Panadería</label>
+    <select id="storeSel">
+      <option value="cupey">Cupey</option>
+      <option value="guaynabo">Apolo · Guaynabo</option>
+      <option value="bayamon">Los Filtros · Bayamón</option>
+    </select>
+    <label for="keyIn">Clave de tienda</label>
+    <input id="keyIn" type="password" autocomplete="off" placeholder="clave de 8 caracteres" />
+    <p class="hint">La clave queda guardada en este equipo.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Tarjeta del cliente</h2>
+    <label for="codeIn">Código (6 caracteres)</label>
+    <input id="codeIn" maxlength="6" autocomplete="off" placeholder="——————" />
+    <div class="row-btns">
+      <button class="btn btn--solid" id="lookBtn">Buscar</button>
+      <button class="btn btn--ghost" id="scanBtn" hidden>Escanear QR</button>
+    </div>
+    <video id="video" hidden playsinline></video>
+  </div>
+
+  <div class="panel" id="custPanel" hidden>
+    <div class="cust">
+      <div class="name" id="cName"></div>
+      <div class="meta" id="cMeta"></div>
+      <div class="punch__grid" id="cGrid" style="max-width:240px"></div>
+      <div class="rw-flag" id="cRw" hidden></div>
+      <div class="row-btns">
+        <button class="btn btn--solid" id="stampBtn">+1 sello</button>
+        <button class="btn btn--verde" id="redeemBtn" disabled>Canjear quesito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const GOAL = 6;
+const BREAD = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14.5c0-4.5 4-7.5 8-7.5s8 3 8 7.5c0 2.2-2.5 3-8 3s-8-.8-8-3z"/><path d="M9 10.8l-1 2.2M13 10l-1 2.2M16.6 10.8l-1 2.2"/></svg>';
+const $ = s => document.querySelector(s);
+const toastMsg = m => { const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); };
+
+const saved = JSON.parse(localStorage.getItem('hf_caja') || '{}');
+if (saved.store) $('#storeSel').value = saved.store;
+if (saved.key) $('#keyIn').value = saved.key;
+const persist = () => localStorage.setItem('hf_caja', JSON.stringify({ store: $('#storeSel').value, key: $('#keyIn').value }));
+$('#storeSel').addEventListener('change', persist);
+$('#keyIn').addEventListener('change', persist);
+
+let current = null;
+
+function paint(card) {
+  current = card;
+  $('#custPanel').hidden = false;
+  $('#cName').textContent = card.name || 'Cliente HORNOFINO';
+  $('#cMeta').textContent = card.code + ' · ' + card.stamps + ' de ' + GOAL + ' sellos';
+  $('#cGrid').innerHTML = Array.from({length: GOAL}, (_, i) =>
+    `<span class="punch__slot${i < card.stamps ? ' full' : ''}">${i < card.stamps ? BREAD : ''}</span>`).join('');
+  const has = card.rewards && card.rewards.length;
+  $('#cRw').hidden = !has;
+  if (has) $('#cRw').innerHTML = `🎁 <strong>${card.rewards.length} quesito${card.rewards.length>1?'s':''} gratis pendiente${card.rewards.length>1?'s':''}</strong> (${card.rewards.join(', ')})`;
+  $('#redeemBtn').disabled = !has;
+}
+
+async function call(path, body) {
+  const res = await fetch('/api/' + path, {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ ...body, store: $('#storeSel').value, key: $('#keyIn').value.trim() })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Error');
+  return data;
+}
+
+$('#lookBtn').addEventListener('click', async () => {
+  const code = $('#codeIn').value.trim().toUpperCase();
+  if (code.length !== 6) return toastMsg('El código tiene 6 caracteres');
+  try {
+    const res = await fetch('/api/card?c=' + encodeURIComponent(code));
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'No encontrada');
+    paint(data.card);
+  } catch(e){ toastMsg(e.message); }
+});
+
+$('#stampBtn').addEventListener('click', async () => {
+  if (!current) return;
+  try {
+    const data = await call('stamp', { card: current.code });
+    paint(data.card);
+    toastMsg(data.rewardEarned ? '🎉 ¡Tarjeta llena — quesito ganado!' : 'Sello añadido');
+  } catch(e){ toastMsg(e.message); }
+});
+
+$('#redeemBtn').addEventListener('click', async () => {
+  if (!current) return;
+  if (!confirm('¿Entregar 1 quesito gratis y marcar el premio como canjeado?')) return;
+  try {
+    const data = await call('redeem', { card: current.code });
+    paint(data.card);
+    toastMsg('Premio ' + data.redeemed + ' canjeado 🥖');
+  } catch(e){ toastMsg(e.message); }
+});
+
+$('#codeIn').addEventListener('keydown', e => { if (e.key === 'Enter') $('#lookBtn').click(); });
+
+/* Escaneo QR con BarcodeDetector (Chrome/Android); si no existe, entrada manual */
+if ('BarcodeDetector' in window) {
+  $('#scanBtn').hidden = false;
+  let stream = null;
+  $('#scanBtn').addEventListener('click', async () => {
+    const video = $('#video');
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; video.hidden = true; $('#scanBtn').textContent = 'Escanear QR'; return; }
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      video.srcObject = stream; video.hidden = false; video.play();
+      $('#scanBtn').textContent = 'Detener cámara';
+      const det = new BarcodeDetector({ formats: ['qr_code'] });
+      const tick = async () => {
+        if (!stream) return;
+        try {
+          const codes = await det.detect(video);
+          if (codes.length) {
+            const raw = codes[0].rawValue.trim().toUpperCase();
+            if (/^[A-Z2-9]{6}$/.test(raw)) {
+              $('#codeIn').value = raw;
+              stream.getTracks().forEach(t => t.stop()); stream = null; video.hidden = true;
+              $('#scanBtn').textContent = 'Escanear QR';
+              $('#lookBtn').click();
+              return;
+            }
+          }
+        } catch(e){}
+        requestAnimationFrame(tick);
+      };
+      tick();
+    } catch(e){ toastMsg('No se pudo abrir la cámara'); }
+  });
+}
+</script>
+</body>
+</html>

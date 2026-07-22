@@ -63,10 +63,10 @@
     <div>
       <span class="eyebrow">Horno Rewards</span>
       <h2>Tu pan de cada día <em>tiene premio.</em></h2>
-      <p id="rwNote">Cada orden = 1 sello. 8 sellos = café o quesito gratis.</p>
+      <p id="rwNote">Cada orden = 1 sello. 6 sellos = quesito gratis.</p>
       <div class="rw-actions">
         <button class="btn btn--solid" id="rwJoin">Únete gratis</button>
-        <button class="btn btn--verde" id="rwRedeem" disabled>Canjear premio</button>
+        <button class="btn btn--verde" id="rwCard" style="display:none">Mi tarjeta</button>
         <span class="rw-progress-note">Válido en las tres panaderías.</span>
       </div>
     </div>
@@ -164,11 +164,9 @@
     <div class="cart__sum"><span id="cartSumLabel">Total</span><span id="cartTotal">$0.00</span></div>
     <input id="cartName" type="text" placeholder="Tu nombre (para la orden)" aria-label="Tu nombre (para la orden)" autocomplete="name" />
     <textarea id="cartNote" rows="2" placeholder="Nota para la tienda (opcional)" aria-label="Nota para la tienda (opcional)"></textarea>
-    <button class="btn btn--solid cart__send" id="cartSend" disabled>Enviar orden por WhatsApp</button>
+    <button class="btn btn--solid cart__send" id="cartSend" disabled>Enviar orden</button>
     <div class="cart__alt">
-      <span>o envíala</span>
-      <button id="cartEmail">por correo</button>
-      <span>·</span>
+      <span>¿para llevar apuntado?</span>
       <button id="cartCopy">copiar orden</button>
     </div>
   </div>

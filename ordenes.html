@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Órdenes · Tienda | HORNOFINO</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  body{padding-bottom:60px}
+  .dash{max-width:960px;margin:30px auto 0;padding:0 20px}
+  .dash-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+  .dash-head select,.dash-head input{
+    border:none;border-radius:12px;padding:.75em 1em;font-family:inherit;font-size:.95rem;
+    background:var(--blanco);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(163,127,53,.35);
+  }
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:900px){.cols{grid-template-columns:1fr}}
+  .col h3{
+    font-family:var(--font-ui);font-size:.62rem;font-weight:750;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--or);margin-bottom:12px;
+  }
+  .ord{
+    border-radius:18px;border:1px solid var(--gold-line);box-shadow:var(--sombra);
+    background:linear-gradient(160deg,var(--blanco),var(--paper-2));
+    padding:18px 18px 16px;margin-bottom:14px;
+  }
+  .ord.new{border-color:var(--or);box-shadow:0 0 0 3px rgba(217,182,101,.25),var(--sombra)}
+  .ord .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .ord .top b{font-family:var(--font-display);font-size:1.15rem}
+  .ord .top span{font-size:.74rem;color:var(--ink-faint)}
+  .ord .who{font-size:.86rem;color:var(--ink-soft);margin-bottom:8px}
+  .ord .who .hr{color:var(--or);font-weight:700}
+  .ord ul{list-style:none;font-size:.88rem;margin:8px 0;color:var(--ink)}
+  .ord ul li{padding:2px 0}
+  .ord .note{font-size:.82rem;color:var(--ink-soft);background:rgba(217,182,101,.12);border-radius:8px;padding:6px 10px;margin:8px 0}
+  .ord .tot{font-weight:750;color:var(--or);font-size:.95rem;margin:6px 0 12px}
+  .ord .btn{width:100%;font-size:.68rem;padding:.9em 1em}
+  .ord .cancel{margin-top:8px;width:100%;text-align:center;font-size:.7rem;color:var(--ink-faint);text-decoration:underline;cursor:pointer}
+  .empty{color:var(--ink-faint);font-size:.86rem;padding:16px 4px}
+  #status{font-size:.76rem;color:var(--ink-faint)}
+</style>
+</head>
+<body>
+
+<div class="dash">
+  <div class="dash-head">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="assets/logo-dark.png" alt="HORNOFINO" style="height:30px" />
+      <span class="eyebrow">Órdenes</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span id="status"></span>
+      <select id="storeSel">
+        <option value="cupey">Cupey</option>
+        <option value="guaynabo">Apolo · Guaynabo</option>
+        <option value="bayamon">Los Filtros · Bayamón</option>
+      </select>
+      <input id="keyIn" type="password" placeholder="clave" autocomplete="off" style="width:120px" />
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col"><h3>Nuevas</h3><div id="colNew"><p class="empty">—</p></div></div>
+    <div class="col"><h3>Preparando</h3><div id="colPrep"><p class="empty">—</p></div></div>
+    <div class="col"><h3>Listas</h3><div id="colReady"><p class="empty">—</p></div></div>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const toastMsg = m => { const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); };
+const saved = JSON.parse(localStorage.getItem('hf_caja') || '{}');
+if (saved.store) $('#storeSel').value = saved.store;
+if (saved.key) $('#keyIn').value = saved.key;
+const persist = () => localStorage.setItem('hf_caja', JSON.stringify({ store: $('#storeSel').value, key: $('#keyIn').value }));
+$('#storeSel').addEventListener('change', () => { persist(); seen = null; poll(); });
+$('#keyIn').addEventListener('change', () => { persist(); seen = null; poll(); });
+
+let seen = null;
+const fmt = ts => new Date(ts).toLocaleTimeString('es-PR', {hour:'numeric', minute:'2-digit'});
+
+function beep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 880; g.gain.value = .15;
+    o.start(); o.stop(ctx.currentTime + .25);
+  } catch(e){}
+}
+
+function card(o, nextLabel, nextStatus, extraClass) {
+  return `<div class="ord ${extraClass}">
+    <div class="top"><b>${o.id}</b><span>${fmt(o.ts)}</span></div>
+    <div class="who">${o.customer ? o.customer : 'Sin nombre'}${o.cardCode ? ' · <span class="hr">HR ' + o.cardCode + '</span>' : ''}</div>
+    <ul>${o.items.map(l => `<li>${l.qty}× ${l.name}</li>`).join('')}</ul>
+    ${o.note ? `<div class="note">📝 ${o.note.replace(/</g,'&lt;')}</div>` : ''}
+    <div class="tot">$${o.total.toFixed(2)}${o.estimate ? '+' : ''}</div>
+    ${nextStatus ? `<button class="btn btn--solid" onclick="setStatus('${o.id}','${nextStatus}')">${nextLabel}</button>` : ''}
+    ${o.status !== 'entregada' ? `<div class="cancel" onclick="setStatus('${o.id}','cancelada', true)">cancelar orden</div>` : ''}
+  </div>`;
+}
+
+async function poll() {
+  const store = $('#storeSel').value, key = $('#keyIn').value.trim();
+  if (!key) { $('#status').textContent = 'pon la clave de tienda'; return; }
+  try {
+    const res = await fetch(`/api/orders?store=${store}&key=${encodeURIComponent(key)}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error');
+    const act = data.orders.filter(o => !['entregada','cancelada'].includes(o.status));
+    const news = act.filter(o => o.status === 'nueva');
+    const prep = act.filter(o => o.status === 'preparando');
+    const ready = act.filter(o => o.status === 'lista');
+    if (seen !== null && news.some(o => !seen.has(o.id))) beep();
+    seen = new Set(news.map(o => o.id));
+    $('#colNew').innerHTML = news.map(o => card(o, 'Empezar a preparar', 'preparando', 'new')).join('') || '<p class="empty">Sin órdenes nuevas</p>';
+    $('#colPrep').innerHTML = prep.map(o => card(o, 'Marcar lista', 'lista', '')).join('') || '<p class="empty">Nada en preparación</p>';
+    $('#colReady').innerHTML = ready.map(o => card(o, 'Entregada ✓', 'entregada', '')).join('') || '<p class="empty">Nada listo para recoger</p>';
+    $('#status').textContent = 'actualizado ' + new Date().toLocaleTimeString('es-PR', {hour:'numeric',minute:'2-digit',second:'2-digit'});
+  } catch(e) {
+    $('#status').textContent = e.message;
+  }
+}
+
+async function setStatus(id, status, confirmIt) {
+  if (confirmIt && !confirm('¿Cancelar la orden ' + id + '?')) return;
+  try {
+    const res = await fetch('/api/order-set-status', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id, status, store: $('#storeSel').value, key: $('#keyIn').value.trim() })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error');
+    if (data.stamped) toastMsg(data.rewardEarned ? '🎉 Cliente ganó su quesito con esta orden' : 'Sello Horno Rewards sumado al cliente');
+    poll();
+  } catch(e){ toastMsg(e.message); }
+}
+
+poll();
+setInterval(poll, 12000);
+</script>
+</body>
+</html>

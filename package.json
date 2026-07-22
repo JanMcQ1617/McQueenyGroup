@@ -1,0 +1,8 @@
+{
+  "name": "mcqueeny-group",
+  "private": true,
+  "description": "McQueenyGroup · HORNOFINO — sitio + API de órdenes y Horno Rewards",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

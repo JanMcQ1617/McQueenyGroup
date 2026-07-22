@@ -39,9 +39,10 @@ const STORES = {
 };
 
 const STORE = STORES[window.STORE_ID];
-const REWARDS_GOAL = 8;
+const REWARDS_GOAL = 6;
+const API = '/api';
 const LS_CART = 'hf_cart_' + window.STORE_ID; // canasta separada por tienda
-const LS_REWARDS = 'hf_rewards';               // tarjeta compartida entre tiendas
+const LS_CARD = 'hf_card_v2';                  // {code,name} — el estado vive en el servidor
 const LS_LAST_STORE = 'hf_last_store';         // el home la usa para "seguir en tu panadería"
 
 const $ = (sel, el) => (el || document).querySelector(sel);
@@ -281,7 +282,6 @@ function updateCartUI() {
   $('#cartSumLabel').textContent = cart.some(r => r.from) ? 'Total estimado' : 'Total';
   $('#cartTotal').textContent = money(cartTotal(cart));
   $('#cartSend').disabled = !cart.length;
-  $('#cartEmail').disabled = !cart.length;
   $('#cartCopy').disabled = !cart.length;
 }
 
@@ -347,133 +347,123 @@ function copyOrder() {
   }
 }
 
-function sendOrder(via) {
+/* La orden se crea en el sistema de la tienda (API) — nada de WhatsApp a ciegas. */
+async function sendOrder() {
   const cart = getCart();
   if (!cart.length) return;
-  const text = orderText();
-  if (via === 'wa') {
-    const w = window.open('https://wa.me/' + STORE.wa + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
-    if (!w) { toast('Tu navegador bloqueó la ventana — permite pop-ups para enviar por WhatsApp'); return; }
-  } else if (via === 'email') {
-    window.location.href = 'mailto:' + STORE.email +
-      '?subject=' + encodeURIComponent('Orden — ' + STORE.title) +
-      '&body=' + encodeURIComponent(text);
-  }
-  // La canasta NO se toca todavía: se confirma en el modal.
-  openCart(false);
-  const canal = via === 'wa' ? 'WhatsApp' : 'tu correo';
-  showModal({
-    icon: 'send',
-    title: 'Un paso más',
-    body: `Abrimos ${canal} con tu orden para <strong>${esc(STORE.name)}</strong>. ` +
-          `Cuando la envíes, confírmalo aquí — así guardamos tu sello y vaciamos la canasta.`,
-    primary: { label: 'Ya la envié ✓', fn: finalizeOrder },
-    alt: { label: 'Volver a la canasta', fn: () => openCart(true) }
-  });
-}
-
-function finalizeOrder() {
-  const res = addStamp();
-  localStorage.removeItem(LS_CART);
-  $('#cartNote').value = '';
-  updateCartUI();
-  const r = res.r;
-  let extra;
-  if (!r.joined) {
-    extra = 'Únete a <strong>Horno Rewards</strong> en la sección de recompensas y acumula un sello con cada orden.';
-  } else if (res.added) {
-    extra = `<strong>+1 sello Horno Rewards</strong> · llevas ${r.stamps} de ${REWARDS_GOAL}.`;
-  } else {
-    extra = 'Tu tarjeta está llena — <strong>canjea tu premio</strong> para seguir acumulando sellos.';
-  }
-  showModal({
-    icon: 'bread',
-    title: '¡Orden enviada a ' + STORE.name + '!',
-    body: 'La tienda confirmará tu orden por el mismo canal.<br>' + extra
-  });
-  if (res.added && typeof hfConfetti === 'function') {
-    setTimeout(() => hfConfetti($('#orderModal .modal')), 250);
+  const btn = $('#cartSend');
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  try {
+    const card = getLocalCard();
+    const res = await fetch(API + '/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        store: window.STORE_ID,
+        items: cart.map(r => {
+          const vi = r.key.includes(':') ? parseInt(r.key.split(':')[1], 10) : null;
+          return vi != null ? { id: r.id, qty: r.qty, variant: vi } : { id: r.id, qty: r.qty };
+        }),
+        name: $('#cartName').value.trim(),
+        note: $('#cartNote').value.trim(),
+        card: card ? card.code : null
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'No se pudo enviar');
+    localStorage.removeItem(LS_CART);
+    $('#cartNote').value = '';
+    updateCartUI();
+    openCart(false);
+    const extra = card
+      ? 'Tu sello Horno Rewards se suma solito cuando recojas tu orden.'
+      : 'Únete a <strong>Horno Rewards</strong> y cada orden sumará un sello.';
+    showModal({
+      icon: 'bread',
+      title: '¡Orden ' + data.orderId + ' enviada!',
+      body: 'La tienda ya la tiene en pantalla. Total: <strong>' + money(data.total) + (data.estimate ? '+' : '') + '</strong> · recoges en <strong>' + esc(data.store) + '</strong>.<br>' + extra,
+      primary: { label: 'Seguir mi orden', fn: () => { window.location.href = 'orden.html?id=' + data.orderId; } },
+      alt: { label: 'Listo', fn: null }
+    });
+  } catch (e) {
+    toast(e.message === 'Failed to fetch' ? 'Sin conexión — intenta de nuevo' : e.message);
+  } finally {
+    btn.disabled = !getCart().length;
+    btn.textContent = 'Enviar orden';
   }
 }
 
-/* ========================= HORNO REWARDS ========================= */
-function getRewards() {
-  try { return JSON.parse(localStorage.getItem(LS_REWARDS)) || { joined: false, name: '', stamps: 0, history: [] }; }
-  catch { return { joined: false, name: '', stamps: 0, history: [] }; }
-}
-function saveRewards(r) { localStorage.setItem(LS_REWARDS, JSON.stringify(r)); renderRewards(); }
-
-function addStamp() {
-  const r = getRewards();
-  if (!r.joined || r.stamps >= REWARDS_GOAL) return { r, added: false };
-  r.stamps += 1;
-  r.history.push({ ts: Date.now(), store: window.STORE_ID });
-  saveRewards(r);
-  return { r, added: true };
+/* ========================= HORNO REWARDS =========================
+   La tarjeta vive en el servidor; aquí solo guardamos {code,name}. */
+function getLocalCard() {
+  try { return JSON.parse(localStorage.getItem(LS_CARD)); } catch { return null; }
 }
 
-function joinRewards() {
+let CARD_STATE = null;
+
+async function fetchCard() {
+  const card = getLocalCard();
+  if (!card) { CARD_STATE = null; renderRewards(); return; }
+  try {
+    const res = await fetch(API + '/card?c=' + encodeURIComponent(card.code));
+    if (res.status === 404) { localStorage.removeItem(LS_CARD); CARD_STATE = null; }
+    else if (res.ok) CARD_STATE = (await res.json()).card;
+  } catch (e) { /* sin red: se muestra lo último conocido */ }
+  renderRewards();
+}
+
+async function joinRewards() {
   const name = prompt('¿Cómo te llamas? (para tu tarjeta Horno Rewards)');
   if (name === null) return;
-  const r = getRewards();
-  r.joined = true;
-  r.name = name.trim();
-  saveRewards(r);
-  toast('¡Ya eres parte de Horno Rewards' + (r.name ? ', ' + r.name : '') + '!');
-}
-
-function redeemRewards() {
-  const r = getRewards();
-  if (r.stamps < REWARDS_GOAL) return;
-  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  let code = 'HR-';
-  for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  r.stamps = 0;
-  r.lastCode = code;
-  saveRewards(r);
-  showModal({
-    icon: 'gift',
-    title: '¡Premio desbloqueado!',
-    body: `Muestra este código en la caja de cualquiera de nuestras panaderías ` +
-          `y canjea un <strong>café o quesito gratis</strong>:<br>` +
-          `<span class="code">${code}</span>`
-  });
-  if (typeof hfConfetti === 'function') setTimeout(() => hfConfetti($('#orderModal .modal')), 200);
+  try {
+    const res = await fetch(API + '/join', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name.trim() })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'No se pudo crear la tarjeta');
+    localStorage.setItem(LS_CARD, JSON.stringify({ code: data.card.code, name: data.card.name }));
+    CARD_STATE = data.card;
+    renderRewards();
+    toast('¡Ya eres parte de Horno Rewards' + (data.card.name ? ', ' + data.card.name : '') + '!');
+  } catch (e) {
+    toast(e.message === 'Failed to fetch' ? 'Sin conexión — intenta de nuevo' : e.message);
+  }
 }
 
 let hfPrevStamps = null;
 function renderRewards() {
-  const r = getRewards();
   const grid = $('#punchGrid');
+  const st = CARD_STATE;
   if (grid) {
     grid.setAttribute('role', 'img');
-    grid.setAttribute('aria-label', r.stamps + ' de ' + REWARDS_GOAL + ' sellos');
-    const gained = hfPrevStamps !== null && r.stamps > hfPrevStamps;
+    grid.setAttribute('aria-label', (st ? st.stamps : 0) + ' de ' + REWARDS_GOAL + ' sellos');
+    const stamps = st ? st.stamps : 0;
+    const gained = hfPrevStamps !== null && stamps > hfPrevStamps;
     grid.innerHTML = Array.from({ length: REWARDS_GOAL }, (_, i) =>
-      `<span class="punch__slot${i < r.stamps ? ' full' : ''}${gained && i === r.stamps - 1 ? ' pop' : ''}" aria-hidden="true">${i < r.stamps ? ICON.bread : ''}</span>`).join('');
-    hfPrevStamps = r.stamps;
+      `<span class="punch__slot${i < stamps ? ' full' : ''}${gained && i === stamps - 1 ? ' pop' : ''}" aria-hidden="true">${i < stamps ? ICON.bread : ''}</span>`).join('');
+    hfPrevStamps = stamps;
   }
   const label = $('#punchLabel');
   if (label) {
-    label.textContent = r.joined
-      ? (r.stamps >= REWARDS_GOAL
-          ? '¡Tarjeta llena! Canjea tu premio 🎉'
-          : `${r.stamps} de ${REWARDS_GOAL} sellos · te faltan ${REWARDS_GOAL - r.stamps}`)
-      : 'Únete gratis y empieza a acumular';
+    if (!st) label.textContent = 'Únete gratis y empieza a acumular';
+    else if (st.rewards.length) label.innerHTML = '🎁 ¡Tienes <strong>' + st.rewards.length + ' quesito' + (st.rewards.length > 1 ? 's' : '') + ' gratis</strong>! Muestra tu código en caja.';
+    else label.textContent = `${st.stamps} de ${REWARDS_GOAL} sellos · te faltan ${REWARDS_GOAL - st.stamps}`;
   }
-  const joinBtn = $('#rwJoin'), redeemBtn = $('#rwRedeem'), note = $('#rwNote');
-  if (joinBtn) joinBtn.style.display = r.joined ? 'none' : '';
-  if (redeemBtn) {
-    redeemBtn.style.display = r.joined ? '' : 'none';
-    redeemBtn.disabled = r.stamps < REWARDS_GOAL;
+  const joinBtn = $('#rwJoin'), cardBtn = $('#rwCard'), note = $('#rwNote');
+  if (joinBtn) joinBtn.style.display = st ? 'none' : '';
+  if (cardBtn) {
+    cardBtn.style.display = st ? '' : 'none';
+    if (st) cardBtn.textContent = 'Mi tarjeta · ' + st.code;
   }
   if (note) {
-    note.textContent = r.joined
-      ? `Hola${r.name ? ', ' + r.name : ''} 👋 · tu tarjeta vale en las tres panaderías.`
-      : 'Cada orden = 1 sello. 8 sellos = café o quesito gratis.';
+    note.textContent = st
+      ? `Hola${st.name ? ', ' + st.name : ''} 👋 · muestra tu tarjeta en caja o incluye tu código al ordenar.`
+      : 'Cada orden o visita = 1 sello. ' + REWARDS_GOAL + ' sellos = quesito gratis.';
   }
 }
-
 /* ============================ MODAL ============================ */
 let modalReturnFocus = null;
 
@@ -550,13 +540,13 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#cartOpen').addEventListener('click', () => openCart(true));
   $('#cartClose').addEventListener('click', () => openCart(false));
   $('#cartOverlay').addEventListener('click', () => openCart(false));
-  $('#cartSend').addEventListener('click', () => sendOrder('wa'));
-  $('#cartEmail').addEventListener('click', () => sendOrder('email'));
+  $('#cartSend').addEventListener('click', sendOrder);
   $('#cartCopy').addEventListener('click', copyOrder);
   $('#orderModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 
   const joinBtn = $('#rwJoin'); if (joinBtn) joinBtn.addEventListener('click', joinRewards);
-  const redeemBtn = $('#rwRedeem'); if (redeemBtn) redeemBtn.addEventListener('click', redeemRewards);
+  const cardBtn = $('#rwCard'); if (cardBtn) cardBtn.addEventListener('click', () => { window.location.href = 'tarjeta.html'; });
+  fetchCard();
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
