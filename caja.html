@@ -178,8 +178,10 @@ if ('BarcodeDetector' in window) {
         try {
           const codes = await det.detect(video);
           if (codes.length) {
-            const raw = codes[0].rawValue.trim().toUpperCase();
-            if (/^[A-Z2-9]{6}$/.test(raw)) {
+            let raw = codes[0].rawValue.trim().toUpperCase();
+            const m = raw.match(/[?&]C=([A-Z2-9]{6})\b/) || raw.match(/^([A-Z2-9]{6})$/);
+            raw = m ? m[1] : '';
+            if (raw) {
               $('#codeIn').value = raw;
               stream.getTracks().forEach(t => t.stop()); stream = null; video.hidden = true;
               $('#scanBtn').textContent = 'Escanear QR';

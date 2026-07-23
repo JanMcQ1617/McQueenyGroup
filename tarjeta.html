@@ -95,7 +95,7 @@ function paint(card){
   $('#who').textContent = card.name ? card.name : 'Tarjeta HORNOFINO';
   $('#codeBig').textContent = card.code;
   const qr = qrcode(0, 'M');
-  qr.addData(card.code);
+  qr.addData(location.origin + '/tarjeta?c=' + card.code);
   qr.make();
   $('#qr').innerHTML = qr.createImgTag(6, 10);
   $('#grid').innerHTML = Array.from({length: GOAL}, (_, i) =>
@@ -105,6 +105,22 @@ function paint(card){
   $('#pend').innerHTML = card.rewards && card.rewards.length
     ? `🎁 Tienes <strong>${card.rewards.length} quesito${card.rewards.length>1?'s':''} gratis</strong> — códigos: <strong>${card.rewards.join(', ')}</strong>. Muestra tu tarjeta en caja.`
     : (card.totalRedeemed ? `Ya has canjeado ${card.totalRedeemed} premio${card.totalRedeemed>1?'s':''}. ¡Vamos por el próximo!` : '');
+}
+
+async function adoptFromUrl(){
+  // Escanear el QR abre /tarjeta?c=CODIGO: adopta la tarjeta en este equipo
+  const c = (new URLSearchParams(location.search).get('c') || '').trim().toUpperCase();
+  if (!/^[A-Z2-9]{6}$/.test(c)) return false;
+  try {
+    const res = await fetch('/api/card?c=' + encodeURIComponent(c));
+    if (!res.ok) return false;
+    const card = (await res.json()).card;
+    localStorage.setItem('hf_card_v2', JSON.stringify({ code: card.code, name: card.name }));
+    history.replaceState(null, '', 'tarjeta.html');
+    paint(card);
+    toastMsg('Tarjeta ' + card.code + ' cargada en este equipo');
+    return true;
+  } catch(e){ return false; }
 }
 
 async function refresh(){
@@ -132,7 +148,7 @@ document.getElementById('joinBtn').addEventListener('click', async () => {
   } catch(e){ toastMsg(e.message); }
 });
 
-refresh();
+(async () => { if (!(await adoptFromUrl())) refresh(); })();
 setInterval(refresh, 20000);
 </script>
 <script src="motion.js"></script>
